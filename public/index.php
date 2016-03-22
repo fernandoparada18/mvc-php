@@ -6,7 +6,7 @@ define("PROJECTPATH", dirname(__DIR__));
 define("APPPATH", PROJECTPATH . '/App');
 
 //url de la app
-define('URL', "http://localhost/web/mvc/public/");
+define('URL', "http://localhost/web/mvc-php/public/");
 
 //autoload con namespaces
 function autoload_classes($class_name){
