@@ -20,15 +20,9 @@ class App
     private $_params = [];
 
     /**
-     * [$config description]
-     * @var [type]
-     */
-    public $config = [];
-
-    /**
     * @var
     */
-    const NAMESPACE_CONTROLLERS = "\App\Controllers\\";
+    const NAMESPACE_CONTROLLERS = "\App\controllers\\";
 
     /**
      * @var
@@ -38,21 +32,17 @@ class App
     /**
      * [__construct description]
      */
-    public function __construct()
-    {
+    public function __construct(){
         //obtenemos la url parseada
         $url = $this->parseUrl();
 
         //comprobamos que exista el archivo en el directorio controllers
-        if(file_exists(self::CONTROLLERS_PATH.ucfirst($url[0]) . ".php"))
-        {
+        if(file_exists(self::CONTROLLERS_PATH.ucfirst($url[0]) . ".php")){
             //nombre del archivo a llamar
             $this->_controller = ucfirst($url[0]);
             //eliminamos el controlador de url, así sólo nos quedaran los parámetros del método
             unset($url[0]);
-        }
-        else
-        {
+        }else{
             include APPPATH . "/views/errors/404.php";
             exit;
         }
@@ -64,18 +54,14 @@ class App
         $this->_controller = new $fullClass;
 
         //si existe el segundo segmento comprobamos que el método exista en esa clase
-        if(isset($url[1]))
-        {
+        if(isset($url[1])){
 
             //aquí tenemos el método
             $this->_method = $url[1];
-            if(method_exists($this->_controller, $url[1]))
-            {
+            if(method_exists($this->_controller, $url[1])){
                 //eliminamos el método de url, así sólo nos quedaran los parámetros del método
                 unset($url[1]);
-            }
-            else
-            {
+            }else{
                 throw new \Exception("Error Processing Method {$this->_method}", 1);
             }
         }
@@ -87,10 +73,8 @@ class App
      * [parseUrl Parseamos la url en trozos]
      * @return [type] [description]
      */
-    public function parseUrl()
-    {
-        if(isset($_GET["url"]))
-        {
+    public function parseUrl(){
+        if(isset($_GET["url"])){
             return explode("/", filter_var(rtrim($_GET["url"], "/"), FILTER_SANITIZE_URL));
         }
     }
@@ -98,8 +82,7 @@ class App
     /**
      * [render  lanzamos el controlador/método que se ha llamado con los parámetros]
      */
-    public function render()
-    {
+    public function render(){
         call_user_func_array([$this->_controller, $this->_method], $this->_params);
     }
 
@@ -107,8 +90,7 @@ class App
      * [getConfig Obtenemos la configuración de la app]
      * @return [Array] [Array con la config]
      */
-    public static function getConfig()
-    {
+    public static function getConfig(){
         return parse_ini_file(APPPATH . '/config/config.ini');
     }
 
@@ -116,8 +98,7 @@ class App
      * [getController Devolvemos el controlador actual]
      * @return [type] [String]
      */
-    public function getController()
-    {
+    public function getController(){
         return $this->_controller;
     }
 
@@ -125,8 +106,7 @@ class App
      * [getMethod Devolvemos el método actual]
      * @return [type] [String]
      */
-    public function getMethod()
-    {
+    public function getMethod(){
         return $this->_method;
     }
 
@@ -134,8 +114,8 @@ class App
      * [getParams description]
      * @return [type] [Array]
      */
-    public function getParams()
-    {
+    public function getParams(){
         return $this->_params;
     }
 }
+?>

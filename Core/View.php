@@ -2,8 +2,8 @@
 namespace Core;
 defined("APPPATH") OR die("Access denied");
 
-class View
-{
+class View {
+
     /**
      * @var
      */
@@ -24,10 +24,8 @@ class View
      * @param  [String]  [template name]
      * @return [html]    [render html]
      */
-    public static function render($template)
-    {
-        if(!file_exists(self::VIEWS_PATH . $template . "." . self::EXTENSION_TEMPLATES))
-        {
+    public static function render($template){
+        if(!file_exists(self::VIEWS_PATH . $template . "." . self::EXTENSION_TEMPLATES)){
             throw new \Exception("Error: El archivo " . self::VIEWS_PATH . $template . "." . self::EXTENSION_TEMPLATES . " no existe", 1);
         }
 
@@ -44,8 +42,8 @@ class View
      * @param [string] $name  [key]
      * @param [mixed] $value [value]
      */
-    public static function set($name, $value)
-    {
+    public static function set($name, $value){
         self::$data[$name] = $value;
     }
 }
+?>
